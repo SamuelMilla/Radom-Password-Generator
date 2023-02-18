@@ -18,22 +18,24 @@ const generatePassword = () => {
     excludeDuplicate = false,
     passLength = lengthSlider.value;
 
-    options.forEach(options => {
-        if(options.checked) {
-            if(options.id !== "exc-duplicate" && option.id !== "spaces") {
+    options.forEach(option => {
+        if(option.checked) {
+            if(option.id !== "exc-duplicate" && option.id !== "spaces") {
                 staticPassword += characters[option.id];
             } else if(option.id === "spaces") {
                 staticPassword += ` ${staticPassword} `;
-            } else {excludeDuplicate = true;
+            } else {
+                excludeDuplicate = true;
             }
         }
     });
 
     for (let i = 0; i < passLength; i++) {
-        let randomChar = staticPassword[Math.floor(Math.radom() * staticPassword.length)];
+        let randomChar = staticPassword[Math.floor(Math.random() * staticPassword.length)];
         if(excludeDuplicate) {
             !randomPassword.includes(randomChar) || randomChar == " " ? randomPassword += randomChar : i--;
-        } else {randomPassword += randomChar;
+        } else {
+            randomPassword += randomChar;
         }
     }
     passwordInput.value = randomPassword;
@@ -52,11 +54,10 @@ updateSlider();
 
 const copyPassword = () => {
     navigator.clipboard.writeText(passwordInput.value);
-    copyIcon.innerText = "check";
-    copyIcon.getElementsByClassName.color = "#4285F4";
+    copyIcon.style.color = "#4285F4";
     setTimeout(() => {
         copyIcon.innerText ="copy_all";
-        copyIcon.getElementsByClassName.color = "#707070";
+        copyIcon.style.color = "#707070";
     }, 1500);
 }
 
